@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
         Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
-        Route::get('users', 'UsersController@show')->name('users.show');
+
     });
     
     Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
