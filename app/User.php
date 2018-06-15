@@ -87,4 +87,52 @@ public function is_following($userId) {
         $follow_user_ids[] = $this->id;
         return Micropost::whereIn('user_id', $follow_user_ids);
     }
+    
+    public function favorites()
+    {
+        return $this->belongsToMany(Micropost::class, 'favorite', 'user_id', 'favorite_id')->withTimestamps();
+    }
+    
+    
+    public function favoru($micropostId)
+{
+    // confirm if already following
+    $exist = $this->is_favo($micropostId);
+    $its_me = $this->id == $micropostId;
+   
+
+    if ($exist || $its_me) {
+        // do nothing if already following
+        return false;
+    } else {
+        // follow if not following
+        $this->favorites()->attach($micropostId);
+        return true;
+    }
+}
+
+public function unfavoru($micropostId)
+{
+    // confirming if already following
+    $exist = $this->is_favo($micropostId);
+    $its_me = $this->id == $micropostId;
+   
+
+
+    if ($exist && !$its_me) {
+        // stop following if following
+        $this->favorites()->detach($micropostId);
+        return true;
+    } else {
+        // do nothing if not following
+        return false;
+    }
+}
+public function is_favo($micropostId) {
+    return $this->favorites()->where('favorite_id', $micropostId)->exists();
+}
+
+    
+
+
 }
