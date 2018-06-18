@@ -98,10 +98,9 @@ public function is_following($userId) {
 {
     // confirm if already following
     $exist = $this->is_favo($micropostId);
-    $its_me = $this->id == $micropostId;
    
 
-    if ($exist || $its_me) {
+    if ($exist) {
         // do nothing if already following
         return false;
     } else {
@@ -115,11 +114,10 @@ public function unfavoru($micropostId)
 {
     // confirming if already following
     $exist = $this->is_favo($micropostId);
-    $its_me = $this->id == $micropostId;
    
 
 
-    if ($exist && !$its_me) {
+    if ($exist) {
         // stop following if following
         $this->favorites()->detach($micropostId);
         return true;
