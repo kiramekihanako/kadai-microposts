@@ -25,7 +25,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $micropost = \App\Micropost::find($id);
         
-        $microposts = $user->feed_microposts()->orderBy('created_at', 'desc')->paginate(10);
+        $microposts = $user->microposts()->orderBy('created_at', 'desc')->paginate(10);
 
         $data = [
             'user' => $user,
